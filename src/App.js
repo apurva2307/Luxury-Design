@@ -9,12 +9,21 @@ import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 function App() {
   const [loading, setLoading] = useState(true);
   const [play, setPlay] = useState(true);
+  const [width, setWidth] = useState(window.innerWidth);
   const videoRef = useRef(null);
   useEffect(() => {
     window.addEventListener("load", function () {
       setLoading(false);
     });
+    window.addEventListener("resize", function () {
+      setWidth(window.innerWidth);
+    });
   }, []);
+  useEffect(() => {
+    window.addEventListener("resize", function () {
+      setWidth(window.innerWidth);
+    });
+  }, [window.innerWidth]);
   const handleClick = () => {
     if (play) {
       setPlay(false);
@@ -24,7 +33,6 @@ function App() {
       videoRef.current.play();
     }
   };
-  console.log(window.innerWidth);
   return (
     <>
       {loading && (
@@ -59,7 +67,7 @@ function App() {
               </div>
               <div className="bottom flexbox">
                 <div>
-                  {window.innerWidth < 577 ? (
+                  {width < 577 ? (
                     <>
                       <div>DESIGNS THAT</div>
                       <div>MAKE A</div>
