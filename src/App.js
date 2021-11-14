@@ -11,20 +11,20 @@ function App() {
   const [play, setPlay] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
   const videoRef = useRef(null);
+
   useEffect(() => {
     window.addEventListener("load", function () {
       setLoading(false);
     });
-    window.addEventListener("resize", function () {
-      setWidth(window.innerWidth);
-    });
   }, []);
+
   useEffect(() => {
     window.addEventListener("resize", function () {
       setWidth(window.innerWidth);
     });
     return () => window.removeEventListener("resize");
   }, []);
+
   const handleClick = () => {
     if (play) {
       setPlay(false);
@@ -34,6 +34,7 @@ function App() {
       videoRef.current.play();
     }
   };
+
   return (
     <>
       {loading && (
