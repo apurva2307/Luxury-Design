@@ -24,6 +24,7 @@ function App() {
       videoRef.current.play();
     }
   };
+  console.log(window.innerWidth);
   return (
     <>
       {loading && (
@@ -58,9 +59,18 @@ function App() {
               </div>
               <div className="bottom flexbox">
                 <div>
-                  <div>DESIGNS THAT</div>
-                  <div>MAKE A</div>
-                  <div>DIFFERENCE</div>
+                  {window.innerWidth < 577 ? (
+                    <>
+                      <div>DESIGNS THAT</div>
+                      <div>MAKE A</div>
+                      <div>DIFFERENCE</div>
+                    </>
+                  ) : (
+                    <>
+                      <div>DESIGNS THAT MAKE</div>
+                      <div>A DIFFERENCE</div>
+                    </>
+                  )}
                 </div>
                 <div className="bottomImage">
                   <img src={robo} alt="robot" className="robo" />
