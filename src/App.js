@@ -23,7 +23,8 @@ function App() {
     window.addEventListener("resize", function () {
       setWidth(window.innerWidth);
     });
-  }, [window.innerWidth]);
+    return () => window.removeEventListener("resize");
+  }, []);
   const handleClick = () => {
     if (play) {
       setPlay(false);
