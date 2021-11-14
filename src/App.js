@@ -1,24 +1,83 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import "./App.css";
+import video from "./assets/bgLeavesAnimation.mp4";
+import preloader from "./assets/preloader.gif";
+import robo1 from "./assets/robo-1.gif";
+import robo from "./assets/robo-2.gif";
+import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const [play, setPlay] = useState(true);
+  const videoRef = useRef(null);
+  useEffect(() => {
+    window.addEventListener("load", function () {
+      setLoading(false);
+    });
+  }, []);
+  const handleClick = () => {
+    if (play) {
+      setPlay(false);
+      videoRef.current.pause();
+    } else {
+      setPlay(true);
+      videoRef.current.play();
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {loading && (
+        <div className="preloader">
+          <img src={preloader} alt="preloader" />
+        </div>
+      )}
+      {!loading && (
+        <header>
+          <div className="container">
+            <video
+              muted
+              autoPlay
+              loop
+              className="video-container"
+              ref={videoRef}
+            >
+              <source src={video} type="video/mp4" />
+            </video>
+            <main>
+              <div className="luxury">
+                <div className="heading">
+                  <div>
+                    <div>LUXURY</div>
+                    <div className="of">of</div>
+                  </div>
+                  <div>DESIGN</div>
+                </div>
+                <div className="navImage">
+                  <img src={robo1} alt="robot" className="robo1" />
+                </div>
+              </div>
+              <div className="bottom flexbox">
+                <div>
+                  <div>DESIGNS THAT</div>
+                  <div>MAKE A</div>
+                  <div>DIFFERENCE</div>
+                </div>
+                <div className="bottomImage">
+                  <img src={robo} alt="robot" className="robo" />
+                </div>
+              </div>
+            </main>
+            <button onClick={handleClick}>
+              {play ? (
+                <BsFillPauseFill color="rgb(255, 200, 87)" size={25} />
+              ) : (
+                <BsFillPlayFill color="rgb(255, 200, 87)" size={25} />
+              )}
+            </button>
+          </div>
+        </header>
+      )}
+    </>
   );
 }
 
